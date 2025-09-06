@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- css se moze pisati u samom htmlu, ili u zasebnom fajlu. Color je boja fonta -->
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Programski jezici</h1>
+    <!-- console.log je da se ispise u consolu, moze se videti preko inspect u browseru -->
+    <script>
+        console.log('Hello world')
+        // javascript podrzava konstante koje se ne mogu menjati, ne moze joj se dodeliti nova vrednost
+        const konstanta = "asdf"
+        // konstanta = "aaaa" - ovo nije dozvoljeno
+        let promenjivaVrednost = "prva vrednost"
+        promenjivaVrednost = "druga vrednost"
+
+        // var isto moze da se koristi za vrednosti koje se menjaju. Let se zadrzava u okviru bloka u kome se dodeljuje, a var je vidljiv i spolja
+        // let cemo koristiti, var se izbegava (zastarela je varijanta). Znaci svud ce biti const i let
+        var vrednost = "neka vrednost"
+        vrednost = "neka druga vrednost";
+
+        //primer if-a
+        if(promenjivaVrednost.toLowerCase().includes('n')) {
+            console.log('Sadrzi slovo n')
+        } else if (promenjivaVrednost.toLowerCase().includes('z')) {
+            console.log('Sadrzi slovo z')
+        } else {
+            console.log('Promenjiva ne sadrzi slova n i z')
+        }
+
+        //jos jedan nacin pisanja if-a (inline if), cesto se koristi u izradi web aplikacija
+        console.log(4 % 2 == 0 ?'deljiv' : 'nije deljiv')
+        
+        // rezultat ovoga posto js ne gleda tipove je "1212". JS zna da je string jaci i samo ce appendovati
+        console.log(12 + "12")
+
+        //iako je array constanta, u njega se mogu ubacivati novi clanovi, samo ne mozemo da kazemo da je ovaj niz jednak necemu drugom
+        // odnosno mozemo da radimo sve osim da menjamo referencu na memoriju gde se niz nalazi
+        const arr = ['hleb', 'mleko', 'med', 'novine']
+        arr.push('meso')
+        console.log(arr)
+
+        //u js postoje i razlicite varijente for petlji
+        // standardna for petlja - prednost sto imamo indeks
+        console.log('Standardni if ispis')
+        for (let i =0; i<arr.length; i++){
+        
+        // Template literal (string unutar `, tzv. backticks): Omogućava da u tekst ubaciš promenljive koristeći ${...}.
+            console.log(`${i+1}) ${arr[i]}`)
+        }
+
+        //sledeca verzija je for each - of ispis
+        console.log('For each - of ispis')
+        for (let item of arr) {
+            console.log(item)
+        }
+
+        // for petlja - for each skraceni ispis (lambda ili funkcionalni)
+        console.log('For each - lambda izraz')
+        arr.forEach(item => {
+            console.log(item)
+        })
+
+    </script>
+</body>
+</html>

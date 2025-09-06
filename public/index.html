@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <!-- ovo je za bootstrapt, mora se ukljuciti na ovom mestu. Sa linka: https://getbootstrap.com/docs/5.3/getting-started/introduction/-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<!-- ovo dole je nacin kako se koristi bootstrap-->
+
+<body data-bs-theme="dark">
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Programski jezici</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Pocetna</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                </div>
+            </div>
+        </nav>
+        <h1> Repertoar filmova</h1>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <i class="fa-solid fa-hashtag"></i>
+                    </th>
+                    <th scope="col">
+                        <i class="fa-solid fa-film"></i> Naziv
+                    </th>
+                    <th scope="col">
+                        <i class="fa-solid fa-envelope-open-text"></i> Kratak Opis
+                    </th>
+                    <th scope="col">
+                        <i class="fa-solid fa-user"></i> Reziser
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="table"></tbody>
+        </table>
+    </div>
+    <!-- html5 omogucava da koristimo template tagove unutar samog html koda-->
+    <template id="template">
+        <tr>
+            <th class="id">
+                </td>
+            <td>
+                <a class="title"></a>
+            </td>
+            <td class="desc"></td>
+            <td class="director"></td>
+            <td class="date"></td>
+        </tr>
+    </template>
+
+    <!-- ovo je za bootstrapt, mora ovde pre axiosa-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <!-- da bismo oplemenili ovu tabelu sa nekim pravim podacima na brz nacin koristimo odredjene funkcije - axios-->
+    <!-- ovo mora da se stavi pre naseg script taga da bismo ga imali dostupnog vec-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- nakon sto imamo template sa classama, mozemo da se vratimo u nas script deo i nastavimo-->
+    <script>
+        const table = document.getElementById('table')
+        const template = document.getElementById('template')
+
+
+        // Rezultat axios.get() nije odmah podaci, nego Promise (objekat koji će kasnije “doneti” podatke kad server odgovori). 
+        // //.then() je metoda koja se koristi na Promise objektima. Funkcija unutar .then() se izvršava kada server pošalje odgovor.
+        axios.get('https://movie.pequla.com/api/movie')
+            //Axios automatski parsira JSON i stavlja ga u data. Ovo "rsp" je proizvoljno, mozete biti i "reponse", data ne mozemo da menjamo
+            .then(rsp => {
+                rsp.data.forEach(movie => {
+                    const copy = template.content.cloneNode(true)
+                    // cloneNode(true) → pravi duboku kopiju (deep clone). To znači da se kopira i sam element i svi njegovi potomci (sve unutar njega)
+                    // cloneNode(false) → pravi plitku kopiju (shallow clone). To znači da se kopira samo element, ali ne i unutrašnji sadržaj.
+                    copy.querySelector('.id').innerText = movie.movieId
+
+                    const title = copy.querySelector('.title')
+                    title.innerText = movie.title
+                    title.href = './movie.html?l=' + movie.shortUrl
+
+                    copy.querySelector('.desc').innerText = movie.shortDescription
+                    copy.querySelector('.director').innerText = movie.director.name
+                    copy.querySelector('.date').innerText = movie.startDate
+                    table.appendChild(copy)
+                })
+            })
+    </script>
+</body>
+
+</html>
