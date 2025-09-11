@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.ac.singidunum.entity.Customer;
 import rs.ac.singidunum.repo.CustomerRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Controller je klasa koja omogucava mapiranje nekih putanja u web pretrazivacu sa nekim kodom gde vracamo podatke u json formatu
@@ -17,12 +18,14 @@ import java.util.List;
 //da se dozvoli sa svih origina da poziva api
 @CrossOrigin
 @RequiredArgsConstructor
-public class CutomerController {
+public class CustomerController {
 
     private final CustomerRepository repository;
 
     @GetMapping
     public List<Customer> getCustomer() {
-        return repository.findAll();
+        List<Customer> list = new ArrayList<>();
+        list = repository.findAll();
+        return list;
     }
 }
