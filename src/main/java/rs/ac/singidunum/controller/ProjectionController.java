@@ -24,6 +24,11 @@ public class ProjectionController {
         return service.getProjections();
     }
 
+    @GetMapping(path = "/future")
+    public List<Projection> getfutureProjections() {
+        return service.futureProjections();
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<Projection> getCustomerById(@PathVariable Integer id) {
         return ResponseEntity.of(service.getProjectionById(id));
