@@ -23,7 +23,7 @@ public class CustomerController {
     private final CustomerService service;
 
     @GetMapping
-    public List<Customer> getCustomer() {
+    public List<Customer> getCustomers() {
         return service.getCustomers();
     }
 
@@ -36,13 +36,13 @@ public class CustomerController {
     @PostMapping
     public Customer savedCustomer(@RequestBody Customer model) {
 
-        return service.createCustomer();
+        return service.createCustomer(model);
     }
 
     @PutMapping(path = "/{id}")
     public Customer updateCustomer(@PathVariable Integer id, @RequestBody Customer model) {
 
-        return service.updateCustomer(id);
+        return service.updateCustomer(id, model);
     }
 
     @DeleteMapping(path = "/{id}")

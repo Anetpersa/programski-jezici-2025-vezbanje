@@ -35,15 +35,15 @@ public class CustomerService {
         return repository.save(customer);
     }
 
-    public Customer updateCustomer(Integer id) {
+    public Customer updateCustomer(Integer id, Customer model) {
         Customer customer = repository.findByIdAndDeletedAtIsNull(id).orElseThrow();
 
-        customer.setFirstName(customer.getFirstName());
-        customer.setLastName(customer.getLastName());
-        customer.setPhone(customer.getPhone());
-        customer.setEmail(customer.getEmail());
-        customer.setUmcn(customer.getUmcn());
-        customer.setTaxId(customer.getTaxId());
+        customer.setFirstName(model.getFirstName());
+        customer.setLastName(model.getLastName());
+        customer.setPhone(model.getPhone());
+        customer.setEmail(model.getEmail());
+        customer.setUmcn(model.getUmcn());
+        customer.setTaxId(model.getTaxId());
         customer.setUpdatedAt(LocalDateTime.now());
         return repository.save(customer);
     }
