@@ -9,10 +9,13 @@ import org.springframework.stereotype.Repository;
 import rs.ac.singidunum.entity.Customer;
 
 import java.util.List;
+import java.util.Optional;
 
 //Ima dva interfejsa koje moze extendovati - CRUD i JPA. Ovaj prvi je stariji, vise basic.
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     List<Customer> findAllByDeletedAtIsNull();
+
+    Optional<Customer> findByIdAndDeletedAtIsNull(Integer id);
 }
