@@ -9,5 +9,4 @@ public class ProgramskiJezici2025Application {
     public static void main(String[] args) {
         SpringApplication.run(ProgramskiJezici2025Application.class, args);
     }
-
 }
